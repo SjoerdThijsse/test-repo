@@ -219,3 +219,7 @@ output {
   stdout { codec => json }
 }
 ```
+```grok
+Exported 274263 records to occurrence file in 00:01:10 time for collectionName 'aves'
+%{DATA} %{INT:occurrences} %{GREEDYDATA} %{TIME:duration} %{GREEDYDATA} %{QS:collectionName}
+```
