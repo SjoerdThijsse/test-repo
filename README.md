@@ -165,24 +165,24 @@ private static ResponseEntity<InputStreamResource> downloadFile(File file,
  */
 @RequestMapping(value = "/update", method = RequestMethod.POST)
 public ModelAndView updateAll() {
-   try {
-        Repository repo = new FileRepositoryBuilder().setGitDir(
-                new File(ExportDwCAUtilities.getCollectionConfigDir()
-                        + "/.git")).build();
+	try {
+		Repository repo = new FileRepositoryBuilder().setGitDir(
+				new File(ExportDwCAUtilities.getCollectionConfigDir()
+						+ "/.git")).build();
 
-       Git git = new Git(repo);
-       git.fetch().setRemote("origin").call();
-       git.checkout().setStartPoint("refs/remotes/origin/test")
-                .addPath("*").setAllPaths(true).call();
+		Git git = new Git(repo);
+		git.fetch().setRemote("origin").call();
+		git.checkout().setStartPoint("refs/remotes/origin/test")
+				.addPath("collections/*").setAllPaths(true).call();
 
-        git.close();
+		git.close();
 
-        startupController.addCollections();
-   } catch (IOException | GitAPIException e) {
-        e.printStackTrace();
-   }
+		startupController.addCollections();
+	} catch (IOException | GitAPIException e) {
+		e.printStackTrace();
+	}
 
-   return new ModelAndView("redirect:/export/collections");
+	return new ModelAndView("redirect:/export/collections");
 }
 ```
 
