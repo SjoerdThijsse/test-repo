@@ -6,7 +6,7 @@
  */
 @RequestMapping(method = RequestMethod.GET)
 public ModelAndView collections() {
-	ModelAndView model = new ModelAndView("export_collectionss");
+	ModelAndView model = new ModelAndView("export_collections");
 	
 	// Get a list of all the available collections to execute.
 	List<Collection> collections = collectionDAO.getAll();
