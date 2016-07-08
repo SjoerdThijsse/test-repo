@@ -223,3 +223,30 @@ output {
 Exported 274263 records to occurrence file in 00:01:10 time for collectionName 'aves'
 %{DATA} %{INT:occurrences} %{GREEDYDATA} %{TIME:duration} %{GREEDYDATA} %{QS:collectionName}
 ```
+
+
+
+```java
+/**
+ * Default endpoint to show all the available tasks to execute.
+ * 
+ * @return The `export_tasks` page filled with objects.
+ */
+@RequestMapping(method = RequestMethod.GET)
+public ModelAndView tasks() {
+	ModelAndView model = new ModelAndView("export_tasks");
+	
+	// Get a list of all the available tasks to execute.
+	List<Task> tasks = taskDAO.getAll();
+	TasksForm tasksForm = new TasksForm(tasks);
+	
+	// Set the form holder.
+	model.addObject("tasksForm", tasksForm);
+	logger.info("Fetched " + Integer.toString(tasks.size()) + " results.");
+	
+	// Enable or disable the export button based on the value;
+	model.addObject("isBusy", ExportController.isBusy);
+	
+	return model;
+}
+```
